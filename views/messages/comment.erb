@@ -1,0 +1,8 @@
+<p>Message:</p>
+<%= message["message"] %>
+
+<form method="post" action="/comments/<%= message["id"] %>">
+  <label for="comment">Comment:</label>
+  <input type="text" name="comment" id="comment"/>
+  <input type="submit" value="Add Comment"/>
+</form>

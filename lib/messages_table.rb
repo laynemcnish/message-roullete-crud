@@ -32,4 +32,11 @@ class MessagesTable
     database_connection.sql(update_sql)
   end
 
+  def delete(id)
+    delete_sql = <<-SQL
+    DELETE from messages
+    WHERE id = #{id}
+    SQL
+    database_connection.sql(delete_sql)
+  end
 end

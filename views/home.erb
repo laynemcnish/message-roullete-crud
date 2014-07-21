@@ -4,12 +4,40 @@
   <button>Submit</button>
 </form>
 
-<% messages.each do |message| %>
 
-  <li><%= message["message"] %></li>
-  <li><a href="/messages/<%= message["id"] %>/edit">Edit Message</a>
-  </li>
 
-<% end %>
+  <table>
+    <% messages.each do |message| %>
+    <tr>
+      <td><a href="/messages/<%= message["id"] %>/show">
+      <%= message["message"] %>"</a></td>
+      <td>
+        <form method="get" action="/messages/<%= message["id"] %>/edit">
+          <input type="submit" value="Edit Message"/>
+        </form>
+      </td>
+      <td>
+        <form method="post" action="/messages/<%= message["id"] %>">
+          <input type="hidden" name="_method" value="delete"/>
+          <input type="submit" value="Delete Message"/>
+        </form>
+      </td>
+      <td><form method="get" action="/comments/<%= message["id"] %>">
+        <input type="submit" value="Add Comment"/></form></td>
+    </tr>
+      <% comments.each do |comment| %>
+        <% if comment["message_id"] == message["id"] %>
+        <tr>
+          <td></td>
+          <td>
+
+            <%= comment["comment"] %>
+              <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+
 
 
