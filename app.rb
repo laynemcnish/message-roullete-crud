@@ -22,7 +22,7 @@ class App < Sinatra::Application
   post "/messages" do
     message = params[:message]
     if message.length <= 140
-      @database_connection.sql("INSERT INTO messages (message) VALUES ('#{message}')")
+      @messages_table.create_message(message)
     else
       flash[:error] = "Message must be less than 140 characters."
     end

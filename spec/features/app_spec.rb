@@ -1,6 +1,7 @@
 require "rspec"
 require "capybara"
 
+
 feature "Messages" do
   scenario "As a user, I can submit a message" do
     visit "/"
@@ -26,11 +27,15 @@ feature "Messages" do
 
   scenario "As a user, I can update my message" do
     visit "/"
-    click_button("Edit Message")
-    fill_in "Message", :with => "Yo What's Up?"
+    fill_in "Message", :with => "Hello Everyone!"
+    click_button "Submit"
+    expect(page).to have_content("Hello Everyone!")
+    click_link("Edit Message")
+    fill_in "message", :with => "Yo Whats Up?"
     click_button("Update Message")
-    expect(page).to have_content("Yo What's Up?")
-    expact(page).to_not have_content("Hello Everyone")
+    save_and_open_page
+    expect(page).to have_content("Yo Whats Up?")
+    expect(page).to_not have_content("Hello Everyone")
 
   end
 end
