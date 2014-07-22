@@ -1,16 +1,24 @@
+<p>Message:</p>
+
 <%= message["message"] %>
+<p></p>
 
 
 
 <% comments.each do |comment| %>
   <% if comment["message_id"] == message["id"] %>
+<p>Comments:</p>
 
-
-    <li><%= comment["comment"] %></li>
+    <%= comment["comment"] %>
   <% end %>
 
 <% end %>
+<p></p>
+<p>Likes:</p>
+  <%= message["likes"] %>
 
 
 
+
+<p></p>
 <a href="/">Back to Home</a>

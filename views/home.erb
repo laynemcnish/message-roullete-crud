@@ -6,38 +6,53 @@
 
 
 
-  <table>
-    <% messages.each do |message| %>
-    <tr>
-      <td><a href="/messages/<%= message["id"] %>/show">
-      <%= message["message"] %></a></td>
-      <td>
-        <form method="get" action="/messages/<%= message["id"] %>/edit">
-          <input type="submit" value="Edit Message"/>
-        </form>
-      </td>
-      <td>
-        <form method="post" action="/messages/<%= message["id"] %>">
-          <input type="hidden" name="_method" value="delete"/>
-          <input type="submit" value="Delete Message"/>
-        </form>
-      </td>
-      <td><form method="get" action="/comments/<%= message["id"] %>">
-        <input type="submit" value="Add Comment"/></form></td>
-    </tr>
-      <% comments.each do |comment| %>
-        <% if comment["message_id"] == message["id"] %>
-        <tr>
-          <td></td>
-          <td>
 
-            <%= comment["comment"] %>
-              <% end %>
-          </td>
-        </tr>
-      <% end %>
+
+<% messages.each do |message| %>
+
+  <a href="/messages/<%= message["id"] %>/show">
+    <%= message["message"] %></a>
+  <p></p>
+
+  <form method="get" action="/messages/<%= message["id"] %>/edit">
+    <input type="submit" value="Edit Message"/>
+  </form>
+  <form method="post" action="/messages/<%= message["id"] %>">
+    <input type="hidden" name="_method" value="delete"/>
+    <input type="submit" value="Delete Message"/>
+  </form>
+  <form method="get" action="/comments/<%= message["id"] %>">
+    <input type="submit" value="Add Comment"/></form>
+
+  <p>Likes:</p>
+  <% if message["likes"] == nil %>
+  <p>0</p>
+
+    <% else %>
+  <%= message["likes"] %>
     <% end %>
-  </table>
+  <p></p>
+  <form method="post" action="/messages/<%= message["id"] %>/add_like">
+    <input type="hidden" name="_method" value="patch"/>
+    <input type="submit" value="Like"/>
+  </form>
+  <form method="post" action="/messages/<%= message["id"] %>/delete_like">
+    <input type="hidden" name="_method" value="patch"/>
+    <input type="submit" value="Unlike"/>
+  </form>
+
+  Comments:
+  <% comments.each do |comment| %>
+<p>
+    <% if comment["message_id"] == message["id"] %>
+      <%= comment["comment"] %></p>
+    <% end %>
+    <p></p>
+
+  <% end %>
+  <p>----------------------------------------------------------------------</p>
+<% end %>
+
 
 
 

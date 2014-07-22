@@ -39,4 +39,28 @@ class MessagesTable
     SQL
     database_connection.sql(delete_sql)
   end
+
+  def find_likes(id)
+    @database_connection.sql("SELECT likes FROM messages WHERE id = #{id}").first
+  end
+
+  def add_like(id, num)
+    add_likes = <<-SQL
+    UPDATE messages
+    SET likes = #{num}
+    WHERE id = #{id};
+    SQL
+    database_connection.sql(add_likes)
+  end
+
+  def delete_like(id, num)
+    delete_likes = <<-SQL
+    UPDATE messages
+    SET message = #{num}
+    WHERE id = #{id}
+    SQL
+    database_connection.sql(delete_likes)
+  end
+
+
 end

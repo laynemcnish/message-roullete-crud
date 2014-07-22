@@ -22,5 +22,13 @@ class CommentsTable
     @database_connection.sql("SELECT * FROM comments WHERE message_id = #{id}").first
   end
 
+  def delete_comment(message_id)
+    delete_sql = <<-SQL
+    DELETE from comments
+    WHERE id = #{message_id}
+    SQL
+    database_connection.sql(delete_sql)
+  end
+
 
 end

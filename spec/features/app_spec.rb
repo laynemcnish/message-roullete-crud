@@ -85,4 +85,32 @@ feature "Messages" do
     expect(page).to have_content("Hi to you too!")
 
   end
+
+  scenario "As a user, I can like a message" do
+    visit "/"
+    fill_in "Message", :with => "Hello Everyone!"
+    click_button "Submit"
+    expect(page).to have_content("Hello Everyone!")
+    expect(page).to have_content("0")
+    click_button("Like")
+    expect(page).to have_content("1")
+    expect(page).to_not have_content("0")
+  end
+
+  scenario "As a user, I can unlike a message & the number of likes can't be a negative number" do
+    visit "/"
+    fill_in "Message", :with => "Hello Everyone!"
+    click_button "Submit"
+    expect(page).to have_content("Hello Everyone!")
+    expect(page).to have_content("0")
+    click_button("Like")
+    expect(page).to have_content("1")
+    expect(page).to_not have_content("0")
+    click_button("Unlike")
+    expect(page).to have_content("0")
+    expect(page).to_not have_content("1")
+    click_button("Unlike")
+    expect(page).to have_content("0")
+    expect(page).to_not have_content("-1")
+  end
   end

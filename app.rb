@@ -33,12 +33,12 @@ class App < Sinatra::Application
     redirect "/"
   end
 
-  get "/messages/:id" do
-    message = @messages_table.find(params[:id])
-    messages = @messages_table.all
-    comments = @comments_table.all
-    erb locals: {messages: messages, comments: comments, message: message}
-  end
+  # get "/messages/:id" do
+  #   # message = @messages_table.find(params[:id])
+  #   # messages = @messages_table.all
+  #   comments = @comments_table.all
+  #   erb locals: {messages: messages, comments: comments, message: message}
+  # end
 
   get "/messages/:id/show" do
     message = @messages_table.find(params[:id])
@@ -79,7 +79,26 @@ class App < Sinatra::Application
 
   delete "/messages/:id" do
     @messages_table.delete(params[:id])
+    @comments_table.delete_comment(params[:id])
     flash[:notice] = "Message deleted"
+    redirect "/"
+  end
+
+  patch "/messages/:id/add_like" do
+    original = @messages_table.find_likes(params[:id])
+    new_like_num = original["likes"].to_i + 1
+    @messages_table.add_like(params[:id], (new_like_num))
+    redirect "/"
+  end
+
+  patch "/messages/:id/delete_like" do
+    original = @messages_table.find_likes(params[:id])
+    if original["likes"].to_i > 0
+    new_like_num = original["likes"].to_i - 1
+    else
+    new_like_num = 0
+    end
+    @messages_table.add_like(params[:id], (new_like_num))
     redirect "/"
   end
 end
