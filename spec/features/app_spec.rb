@@ -51,11 +51,11 @@ feature "Messages" do
   end
 
   scenario "As a user, I can delete messages" do
-  visit "/"
-  fill_in "Message", :with => "Hello Everyone!"
-  click_button "Submit"
-  click_button "Delete"
-  expect(page).to_not have_content("Hello Everyone!")
+    visit "/"
+    fill_in "Message", :with => "Hello Everyone!"
+    click_button "Submit"
+    click_button "Delete"
+    expect(page).to_not have_content("Hello Everyone!")
   end
 
   scenario "As a user, I can add comments" do
@@ -113,4 +113,4 @@ feature "Messages" do
     expect(page).to have_content("0")
     expect(page).to_not have_content("-1")
   end
-  end
+end

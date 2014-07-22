@@ -10,7 +10,6 @@ class CommentsTable
     INSERT INTO comments (message_id, comment)
     VALUES (#{message_id}, '#{comment}')
     SQL
-
     @database_connection.sql(insert_comment_sql)
   end
 

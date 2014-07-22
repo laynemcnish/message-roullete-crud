@@ -26,11 +26,11 @@
 
   <p>Likes:</p>
   <% if message["likes"] == nil %>
-  <p>0</p>
+    <p>0</p>
 
-    <% else %>
-  <%= message["likes"] %>
-    <% end %>
+  <% else %>
+    <%= message["likes"] %>
+  <% end %>
   <p></p>
   <form method="post" action="/messages/<%= message["id"] %>/add_like">
     <input type="hidden" name="_method" value="patch"/>
@@ -43,11 +43,11 @@
 
   Comments:
   <% comments.each do |comment| %>
-<p>
-    <% if comment["message_id"] == message["id"] %>
-      <%= comment["comment"] %></p>
-    <% end %>
-    <p></p>
+    <p>
+      <% if comment["message_id"] == message["id"] %>
+        <%= comment["comment"] %></p>
+      <% end %>
+      <p></p>
 
   <% end %>
   <p>----------------------------------------------------------------------</p>
